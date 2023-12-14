@@ -19,15 +19,15 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold (
 
-      bottomNavigationBar: BottomNavigationBar(currentIndex: currentIndex,onTap: (index){
+      bottomNavigationBar: BottomNavigationBar(backgroundColor: Colors.black,currentIndex: currentIndex,onTap: (index){
         setState(() {
           currentIndex=index;
         });
       },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined,color: Colors.black,size: 30.sp,), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search_outlined,color: Colors.black,), label: "Shop"),
-          BottomNavigationBarItem(icon:  Icon(Icons.list_alt,color: Colors.black), label: "Me",),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined,color: Colors.white,size: 30.sp,), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search_outlined,color: Colors.white,), label: "Shop"),
+          BottomNavigationBarItem(icon:  Icon(Icons.list_alt,color: Colors.white), label: "Me",),
 
         ],
       ),body: screens[currentIndex],
