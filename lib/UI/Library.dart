@@ -32,6 +32,82 @@ class _LibraryState extends State<Library> {
           )
         ],
       ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+
+
+            SizedBox(height: 10,),
+
+
+            Text('Pinned Libraries',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
+            SizedBox(height: 10,),
+
+            Expanded(
+              child: ListView(
+
+
+                children: List.generate(
+                  15,
+                      (index) {
+                    return Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              width: 340.w,
+                              height: 60.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30.0),
+                                  ),color: Colors.transparent
+                              ),
+                              child:Row(
+                                children: [
+                                  Image.asset('assets/img1.jpg',fit: BoxFit.fill,
+
+                                  ),
+                                  SizedBox(width: 230.w,
+                                    child: Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
+
+                                      children: [
+                                        Padding(
+                                          padding:  EdgeInsets.only(left: 12.w),
+                                          child: Text('Music Played',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                                        ),
+                                        Padding(
+                                          padding:  EdgeInsets.only(left: 12.w),
+                                          child: Text('Playlist',style: TextStyle(color: Colors.grey,fontSize: 12),),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              )
+                          ),
+                        ),
+
+                      ],
+                    );
+                    // SizedBox(width: 10.w,),
+                  },
+                ),
+              ),
+            ),
+
+
+
+
+
+
+          ],
+        ),
+      ),
+
     );
   }
 }

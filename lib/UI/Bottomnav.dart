@@ -26,8 +26,8 @@ class _BottomNavState extends State<BottomNav> {
       },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined,color: Colors.white,size: 30.sp,), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search_outlined,color: Colors.white,), label: "Shop"),
-          BottomNavigationBarItem(icon:  Icon(Icons.list_alt,color: Colors.white), label: "Me",),
+          BottomNavigationBarItem(icon: Icon(Icons.search_outlined,color: Colors.white,), label: "Search"),
+          BottomNavigationBarItem(icon:  Icon(Icons.list_alt,color: Colors.white), label: "Library",),
 
         ],
       ),body: screens[currentIndex],
