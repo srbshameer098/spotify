@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Music extends StatefulWidget {
@@ -7,8 +8,18 @@ class Music extends StatefulWidget {
   State<Music> createState() => _MusicState();
 }
 
+
+
 class _MusicState extends State<Music> {
+
+
+
   double Value = 20;
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -140,9 +151,15 @@ SizedBox(width: 260.w,),
                     SizedBox(width: 20.w,),
 
 
-                    CircleAvatar(
-                        radius: 35,backgroundColor: Colors.white,
-                        child: Icon(Icons.pause,color: Colors.black,size: 35,)),
+                    TextButton(
+                      onPressed: () async{
+                        final player = AudioPlayer();
+                  await      player.play(AssetSource('pokki_DJ.mp3'));
+                      },
+                      child: CircleAvatar(
+                          radius: 35,backgroundColor: Colors.white,
+                          child: Icon(Icons.pause,color: Colors.black,size: 35,)),
+                    ),
 
 
                     SizedBox(width: 20.w,),
@@ -176,5 +193,6 @@ SizedBox(width: 260.w,),
       ),
     );
   }
+
 
 }

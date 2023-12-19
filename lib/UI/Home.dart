@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled4/UI/Music.dart';
+import 'package:untitled4/UI/ex.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: (){
                       Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_)=>Music()));
+                          .push(MaterialPageRoute(builder: (_)=>ex()));
                     },
                     child: SizedBox(height: 250,
                       child: GridView.count(
