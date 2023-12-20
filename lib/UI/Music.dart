@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'ex.dart';
 class Music extends StatefulWidget {
   const Music({Key? key}) : super(key: key);
 
@@ -158,7 +160,10 @@ SizedBox(width: 260.w,),
                       },
                       child: CircleAvatar(
                           radius: 35,backgroundColor: Colors.white,
-                          child: Icon(Icons.pause,color: Colors.black,size: 35,)),
+
+                          child: Icon(
+                            playing ? Icons.pause : Icons.play_arrow,
+                            color: Colors.black,size: 35,)),
                     ),
 
 
