@@ -17,24 +17,23 @@ List<String> music = [
   'assets/abc.mp3',
 ];
 List<String> img = [
-  'assets/img1.jpg',
-  'assets/picture1179.png',
+  'assets/img4.jpg',
+  'assets/img3.jpg',
 ];
 
 // Insert your music URL
- // Insert your thumbnail URL
+// Insert your thumbnail URL
 AudioPlayer player = AudioPlayer();
 bool loaded = false;
 bool playing = false;
-int selectedIndex = 0;
+int selectedIndex = 1;
 
 class _exState extends State<ex> {
   final controller = CarouselController();
 
-
   void loadMusic() async {
     await player.setAsset(music[selectedIndex]);
-    print("hello"+selectedIndex.toString());
+    print("hello" + selectedIndex.toString());
     setState(() {
       loaded = true;
     });
@@ -66,12 +65,40 @@ class _exState extends State<ex> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFD000000),
       appBar: AppBar(
-        title: const Text("Music Player"),
+        backgroundColor: Color(0xFD000000),
+        leading: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        title: Center(
+          child: Column(
+            children: [
+              Text(
+                'Playing From Playlist ',
+                style: TextStyle(color: Colors.white, fontSize: 12.sp),
+              ),
+              Text('New Songs ',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500)),
+            ],
+          ),
+        ),
+        actions: [
+          Icon(
+            Icons.more_horiz,
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: 20.w,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -81,51 +108,88 @@ class _exState extends State<ex> {
               flex: 1,
             ),
             SizedBox(
-              width: 500.w,
-              height: 500.h,
-              child: CarouselSlider.builder(carouselController:controller ,
-                  options: CarouselOptions(initialPage:selectedIndex ,onPageChanged: ( index,value){
+              width: 300.w,
+              height: 400.h,
+              child: CarouselSlider.builder(
+                carouselController: controller,
+                options: CarouselOptions(
+                  initialPage: selectedIndex,
+                  onPageChanged: (index, value) {
                     setState(() {
-                      selectedIndex=index;
-
+                      selectedIndex = index;
                     });
-                    print("ki"+selectedIndex.toString());
+                    print("img" + selectedIndex.toString());
                   },
-                    height: 500.0,
-                    autoPlay: false,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: false,
+                  height: 500.0,
+                  autoPlay: false,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 1,
+                ),
+                itemCount: img.length,
+                itemBuilder: (BuildContext context, int index, int realIndex) {
+                  print("real" + realIndex.toString());
+                  print("index" + index.toString());
 
-                    viewportFraction: 1,
-                  ), itemCount: img.length, itemBuilder: (BuildContext context, int index, int realIndex) {
-
-                    print("real"+realIndex.toString());
-                    print("index"+index.toString());
-
-                    return    Container(
-                  height: 500.h,
-                  width: 500.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(width: 1, color: Colors.grey),
-                      color: Colors.red),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 0.w),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              img[realIndex],
-
-                              fit: BoxFit.fill,
+                  return Container(
+                    height: 400.h,
+                    width: 300.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(width: 0, color: Colors.grey),
+                        color: Colors.black),
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 0.w),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: Image.asset(
+                                img[realIndex],
+                                // fit: BoxFit.fill,
+                                height: 397.h,
+                                width: 300.w,
+                              ),
                             ),
-                          ),
-                        ]),
-                  )); },),
+                          ]),
+                    ),
+                  );
+                },
+              ),
             ),
-            const Spacer(),
+            Padding(
+              padding: EdgeInsets.only(left: 28.w, top: 40.sp, bottom: 15.h),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Song Name ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text('Playlist Name ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 170.w,
+                  ),
+                  Icon(
+                    Icons.favorite_border,
+                    color: Colors.grey,
+                  )
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: StreamBuilder(
@@ -143,19 +207,20 @@ class _exState extends State<ex> {
                           return SizedBox(
                             height: 30,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               child: ProgressBar(
                                 progress: duration,
-                                total:
-                                    player.duration ?? const Duration(seconds: 0),
+                                total: player.duration ??
+                                    const Duration(seconds: 0),
                                 buffered: bufferedDuration,
                                 timeLabelPadding: -1,
                                 timeLabelTextStyle: const TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                                progressBarColor: Colors.red,
-                                baseBarColor: Colors.grey[200],
-                                bufferedBarColor: Colors.grey[350],
-                                thumbColor: Colors.red,
+                                    fontSize: 14, color: Colors.white),
+                                progressBarColor: Colors.white,
+                                baseBarColor: Colors.grey[700],
+                                bufferedBarColor: Colors.grey[400],
+                                thumbColor: Colors.white,
                                 onSeek: loaded
                                     ? (duration) async {
                                         await player.seek(duration);
@@ -167,82 +232,136 @@ class _exState extends State<ex> {
                         });
                   }),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 15.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: loaded
-                        ? () async {
-                      controller.previousPage();
-                      if(selectedIndex>0){
-                        setState(() {
-                          selectedIndex=selectedIndex-1;
-                        });
-                      print("hi"+selectedIndex.toString());
-                      }
-                            if (player.position.inSeconds >= 10) {
-                              await player.seek(Duration(
-                                  seconds: player.position.inSeconds - 10));
-                            } else {
-                              await player.seek( const Duration(seconds: 0));
-                            }
-                          }
-                        : null,
-                    icon: const Icon(Icons.fast_rewind_rounded)),
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.red),
-                  child: IconButton(
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20.w,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.shuffle_outlined,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    width: 40.w,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  IconButton(
                       onPressed: loaded
-                          ? () {
-                              if (playing) {
-                                pauseMusic();
+                          ? () async {
+                              controller.previousPage();
+                              if (selectedIndex > 0) {
+                                setState(() {
+                                  selectedIndex = selectedIndex - 1;
+                                });
+                                print("adfront" + selectedIndex.toString());
+                              }
+                              if (player.position.inSeconds >= 10) {
+                                await player.seek(Duration(
+                                    seconds: player.position.inSeconds - 10));
                               } else {
-                                playMusic();
+                                await player.seek(const Duration(seconds: 0));
                               }
                             }
                           : null,
-                      icon: Icon(
-                        playing ? Icons.pause : Icons.play_arrow,
+                      icon: const Icon(
+                        Icons.fast_rewind_rounded,
                         color: Colors.white,
                       )),
-                ),
-                IconButton(
-                    onPressed: loaded
-                        ? () async {
-                      controller.nextPage();
-                      if(selectedIndex<img.length-1){
-                      setState(() {
-                        selectedIndex=selectedIndex+1;
-                      });
-                      print("hi"+selectedIndex.toString());
-                      }
-                            if (player.position.inSeconds + 10 <=
-                                player.duration!.inSeconds) {
-                              await player.seek(Duration(
-                                  seconds: player.position.inSeconds + 10));
-                            } else {
-                              await player.seek(const Duration(seconds: 0));
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    child: IconButton(
+                        onPressed: loaded
+                            ? () {
+                                if (playing) {
+                                  pauseMusic();
+                                } else {
+                                  playMusic();
+                                }
+                              }
+                            : null,
+                        icon: Icon(
+                          playing ? Icons.pause : Icons.play_arrow,
+                          color: Colors.black,
+                        )),
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  IconButton(
+                      onPressed: loaded
+                          ? () async {
+                              controller.nextPage();
+                              if (selectedIndex < img.length - 1) {
+                                setState(() {
+                                  selectedIndex = selectedIndex - 1;
+                                });
+                                print("adback" + selectedIndex.toString());
+                              }
+                              if (player.position.inSeconds + 10 <=
+                                  player.duration!.inSeconds) {
+                                await player.seek(Duration(
+                                    seconds: player.position.inSeconds + 10));
+                              } else {
+                                await player.seek(const Duration(seconds: 0));
+                              }
                             }
-                          }
-                        : null,
-                    icon: const Icon(Icons.fast_forward_rounded)),
-                const SizedBox(
-                  width: 10,
+                          : null,
+                      icon: const Icon(
+                        Icons.fast_forward_rounded,
+                        color: Colors.white,
+                        size: 25,
+                      )),
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  Icon(
+                    Icons.repeat_outlined,
+                    color: Colors.white,
+                    size: 25,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 25.w,
                 ),
+                Icon(
+                  Icons.devices,
+                  color: Colors.white,
+                  size: 22,
+                ),
+                SizedBox(
+                  width: 270.w,
+                ),
+                Icon(
+                  Icons.share_outlined,
+                  color: Colors.white,
+                  size: 22,
+                )
               ],
             ),
-            const Spacer(
-              flex: 2,
-            ),
+            SizedBox(
+              height: 30.h,
+            )
           ],
         ),
       ),

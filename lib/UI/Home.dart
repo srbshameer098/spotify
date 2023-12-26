@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled4/UI/Music.dart';
 import 'package:untitled4/UI/ex.dart';
+
+import '../Bloc/spotify_bloc.dart';
+import '../Repository/ModelClass/spotify_model.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
-
+late SpotifyModel response;
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Color(0xFD000000),
-      body: SafeArea(
+      body: BlocBuilder<SpotifyBloc, SpotifyState>(
+  builder: (context, state) {
+      if (state is SpotifyblocLoading) {
+        return Center(child: CircularProgressIndicator());
+      }
+      if (state is SpotifyblocError) {
+        return Center(
+          child: Text("ERROR"),
+        );
+      }
+      if (state is SpotifyblocLoaded) {
+        response = BlocProvider.of<SpotifyBloc>(context).spotifyModel;
+
+
+
+        return SafeArea(
         child: Padding(
           padding:  EdgeInsets.only(left: 10.w,top: 5.h),
           child: SingleChildScrollView(
@@ -155,7 +174,9 @@ class _HomeState extends State<Home> {
                                         Radius.circular(10.0),
                                       ),color: Colors.grey.shade700
                                   ),
-                                  child:Image.asset('assets/img1.jpg',fit: BoxFit.fill,
+                                  child:NetworkImage(
+                                    response,
+                                    fit: BoxFit.fill,
             
                                   )
                               ),
@@ -226,7 +247,12 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-      ),
+      );
+      } else {
+        return SizedBox();
+      }
+  },
+),
     );
   }
 }
