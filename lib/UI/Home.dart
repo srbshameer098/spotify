@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +17,11 @@ class Home extends StatefulWidget {
 late SpotifyModel response;
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    BlocProvider.of<SpotifyBloc>(context).add(FetchSpotify(message: 'text'));
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Color(0xFD000000),
@@ -25,7 +32,7 @@ class _HomeState extends State<Home> {
       }
       if (state is SpotifyblocError) {
         return Center(
-          child: Text("ERROR"),
+          child: Text("ERROR",style: TextStyle(color: Colors.white),),
         );
       }
       if (state is SpotifyblocLoaded) {
@@ -60,7 +67,7 @@ class _HomeState extends State<Home> {
                         childAspectRatio: 150 / 50,
                         shrinkWrap: true,
                         children: List.generate(
-                        8,
+                          response.playlists!.items!.length,
                               (index) {
                             return Container(
                               width: 150.w,
@@ -68,11 +75,11 @@ class _HomeState extends State<Home> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10.0),
-                                ),color: Colors.grey.shade700
+                                ),color: Colors.grey.shade800
                               ),
                               child:Row(
                                 children: [
-                                  Container( width: 50.w,height: 80.h,
+                                  Container( width: 60.w,height: 80.h,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             bottomRight: Radius.circular(0),
@@ -83,14 +90,20 @@ class _HomeState extends State<Home> {
 
                                         ),color: Colors.blueAccent
                                     ),
-                                    child: Image.asset('assets/img1.jpg',fit: BoxFit.fill,
+                                    child: Image.network(
+                                     response.playlists!.items![index].data!.images!.items![0].sources![0].url.toString(),
+                                      fit: BoxFit.fill,
 
                                     ),
                                   ),
 
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text('data',style: TextStyle(color: Colors.white),),
+                                    child: SizedBox(width: 80.w,
+                                      child: Text(
+                                        response.playlists!.items![index].data!.name.toString(),
+                                        style: TextStyle(color: Colors.white,fontSize: 16.sp),),
+                                    ),
                                   ),
                                 ],
                               )
@@ -155,12 +168,12 @@ class _HomeState extends State<Home> {
                 Text('Recently Played',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
                 SizedBox(height: 10,),
             
-                SizedBox(height: 200.w,
+                SizedBox(height: 200.h,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
             
                     children: List.generate(
-                      8,
+                      response.albums!.items![0].data!.coverArt!.sources!.length,
                           (index) {
                         return Column(
                           children: [
@@ -173,12 +186,7 @@ class _HomeState extends State<Home> {
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(10.0),
                                       ),color: Colors.grey.shade700
-                                  ),
-                                  child:NetworkImage(
-                                    response,
-                                    fit: BoxFit.fill,
-            
-                                  )
+                                  ),child: Image(image: NetworkImage(response.albums!.items![index].data!.coverArt!.sources![index].url.toString()),),
                               ),
                             ),
                             Padding(

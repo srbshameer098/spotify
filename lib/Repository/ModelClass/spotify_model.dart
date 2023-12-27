@@ -101,7 +101,7 @@ class Data7 {
   String? id;
   String? displayName;
   String? username;
-  Image? image;
+  Image1? image;
 
   Data7({this.uri, this.id, this.displayName, this.username, this.image});
 
@@ -110,7 +110,7 @@ class Data7 {
     id = json["id"];
     displayName = json["displayName"];
     username = json["username"];
-    image = json["image"] == null ? null : Image.fromJson(json["image"]);
+    image = json["image"] == null ? null : Image1.fromJson(json["image"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -126,13 +126,13 @@ class Data7 {
   }
 }
 
-class Image {
+class Image1 {
   String? smallImageUrl;
   String? largeImageUrl;
 
-  Image({this.smallImageUrl, this.largeImageUrl});
+  Image1({this.smallImageUrl, this.largeImageUrl});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Image1.fromJson(Map<String, dynamic> json) {
     smallImageUrl = json["smallImageUrl"];
     largeImageUrl = json["largeImageUrl"];
   }
