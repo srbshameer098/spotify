@@ -57,7 +57,9 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: (){
                       Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_)=>ex()));
+                          .push(MaterialPageRoute(builder: (_)=>ex(
+
+                      )));
                     },
                     child: SizedBox(height: 250,
                       child: GridView.count(
@@ -102,7 +104,7 @@ class _HomeState extends State<Home> {
                                     child: SizedBox(width: 80.w,
                                       child: Text(
                                         response.playlists!.items![index].data!.name.toString(),
-                                        style: TextStyle(color: Colors.white,fontSize: 16.sp),),
+                                        style: TextStyle(color: Colors.white,fontSize: 14.sp,fontWeight: FontWeight.w500),),
                                     ),
                                   ),
                                 ],
@@ -120,7 +122,9 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 10,),
 
 
-                Text('Recently Played',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
+                Text(
+                 'podcasts',
+                  style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
                 SizedBox(height: 10,),
             
             SizedBox(height: 200.w,
@@ -128,7 +132,7 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.horizontal,
             
                  children: List.generate(
-                    8,
+                    response.podcasts!.items!.length,
                         (index) {
                       return Column(
                         children: [
@@ -142,14 +146,20 @@ class _HomeState extends State<Home> {
                                       Radius.circular(10.0),
                                     ),color: Colors.grey.shade700
                                 ),
-                                child:Image.asset('assets/img1.jpg',fit: BoxFit.fill,
+                                child:Image.asset(
+                                  response.podcasts!.items![index].data!.coverArt!.sources![0].url.toString(),
+                                  fit: BoxFit.fill,
             
                                 )
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('data',style: TextStyle(color: Colors.white),),
+                            child: SizedBox(width: 150.w,height: 18.h,
+                              child: Text(
+                                response.podcasts!.items![index].data!.name.toString(),
+                                style: TextStyle(color: Colors.white),),
+                            ),
                           ),
                         ],
                       );
@@ -165,7 +175,7 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 10,),
 
             
-                Text('Recently Played',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
+                Text('Recently Played1',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
                 SizedBox(height: 10,),
             
                 SizedBox(height: 200.h,
@@ -232,14 +242,18 @@ class _HomeState extends State<Home> {
                                         Radius.circular(10.0),
                                       ),color: Colors.grey.shade700
                                   ),
-                                  child:Image.asset('assets/img1.jpg',fit: BoxFit.fill,
+                                  child:Image.asset(
+                                    response.artists!.items![0].data!.visuals!.avatarImage!.sources![0].url.toString(),
+                                    fit: BoxFit.fill,
 
                                   )
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('data',style: TextStyle(color: Colors.white),),
+                              child: Text(
+                                response.artists!.items![index].data!.profile!.name.toString(),
+                                style: TextStyle(color: Colors.white),),
                             ),
                           ],
                         );
