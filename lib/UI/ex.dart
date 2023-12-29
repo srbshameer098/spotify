@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../Bloc/spotify_bloc.dart';
 import 'Home.dart';
@@ -28,7 +30,7 @@ List<String> img = [
   'assets/img4.jpg',
   'assets/img3.jpg',
 ];
-
+late AudioPlayer _audioPlayer;
 // Insert your music URL
 // Insert your thumbnail URL
 AudioPlayer player = AudioPlayer();
@@ -39,8 +41,12 @@ int selectedIndex = 1;
 class _exState extends State<ex> {
   final controller = CarouselController();
 
+
+
+
   void loadMusic() async {
-    await player.setAsset( response.tracks!.items![0].data!.uri.toString());
+    await player.setAudioSource(AudioSource.uri(Uri.parse(
+       " 2GXXZFUxYg2LvG8SR0byOE")));
     print("hello" + selectedIndex.toString());
     setState(() {
       loaded = true;
