@@ -6,8 +6,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:untitled4/Bloc/Jios_Bloc/jios_bloc.dart';
 
-import '../Bloc/spotify_bloc.dart';
+import '../Bloc/Spotify_Bloc/spotify_bloc.dart';
 import 'Home.dart';
 
 class ex extends StatefulWidget {
@@ -46,7 +47,7 @@ class _exState extends State<ex> {
 
   void loadMusic() async {
     await player.setAudioSource(AudioSource.uri(Uri.parse(
-       " 2GXXZFUxYg2LvG8SR0byOE")));
+       "https://www.jiosaavn.com/song/let-me-down-hindi-mix/FAYgchx,ZwM")));
     print("hello" + selectedIndex.toString());
     setState(() {
       loaded = true;
@@ -81,18 +82,18 @@ class _exState extends State<ex> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SpotifyBloc, SpotifyState>(
+    return BlocBuilder<JiosBloc, JiosState>(
       builder: (context, state) {
-      if (state is SpotifyblocLoading) {
+      if (state is JiosblocLoading) {
         return Center(child: CircularProgressIndicator());
       }
-      if (state is SpotifyblocError) {
+      if (state is JiosblocError) {
         return Center(
           child: Text("ERROR",style: TextStyle(color: Colors.white),),
         );
       }
-      if (state is SpotifyblocLoaded) {
-        response = BlocProvider.of<SpotifyBloc>(context).spotifyModel;
+      if (state is JiosblocLoaded) {
+        response = BlocProvider.of<JiosBloc>(context).jios_Model;
 
 
         return Scaffold(

@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled4/UI/Music.dart';
 import 'package:untitled4/UI/ex.dart';
 
-import '../Bloc/spotify_bloc.dart';
+import '../Bloc/Spotify_Bloc/spotify_bloc.dart';
+import '../Repository/ModelClass/Jios_Model.dart';
 import '../Repository/ModelClass/spotify_model.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 late SpotifyModel response;
+late Jios_Model response1;
 class _HomeState extends State<Home> {
   @override
   void initState() {
@@ -146,11 +148,9 @@ class _HomeState extends State<Home> {
                                               Radius.circular(10.0),
                                             ),color: Colors.grey.shade700
                                         ),
-                                        child:Image.asset(
-                                          response.podcasts!.items![index].data!.coverArt!.sources![0].url.toString(),
-                                          fit: BoxFit.fill,
-
-                                        )
+                                        child: Image(image: NetworkImage(
+                                          response.podcasts!.items![index].data!.coverArt!.sources![1].url.toString(),
+                                        ),),
                                     ),
                                   ),
                                   Padding(
@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 10,),
 
 
-                      Text('Recently Played1',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
+                      Text('playlists',style: TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.w600),),
                       SizedBox(height: 10,),
 
                       SizedBox(height: 200.h,
@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                           scrollDirection: Axis.horizontal,
 
                           children: List.generate(
-                            response.albums!.items![0].data!.coverArt!.sources!.length,
+                            response.playlists!.items!.length,
                                 (index) {
                               return Column(
                                 children: [
@@ -196,7 +196,9 @@ class _HomeState extends State<Home> {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(10.0),
                                           ),color: Colors.grey.shade700
-                                      ),child: Image(image: NetworkImage(response.albums!.items![index].data!.coverArt!.sources![index].url.toString()),),
+                                      ),child: Image(image: NetworkImage(
+                                      response.playlists!.items![index].data!.images!.items![0].sources![0].url.toString(),
+                                    ),),
                                     ),
                                   ),
                                   Padding(
@@ -228,7 +230,7 @@ class _HomeState extends State<Home> {
                           scrollDirection: Axis.horizontal,
 
                           children: List.generate(
-                            8,
+                            response.artists!.items!.length,
                                 (index) {
                               return Column(
                                 children: [
@@ -242,11 +244,9 @@ class _HomeState extends State<Home> {
                                               Radius.circular(10.0),
                                             ),color: Colors.grey.shade700
                                         ),
-                                        child:Image.asset(
-                                          response.artists!.items![0].data!.visuals!.avatarImage!.sources![0].url.toString(),
-                                          fit: BoxFit.fill,
-
-                                        )
+                                        child:  Image(image: NetworkImage(
+                                          response.artists!.items![index].data!.visuals!.avatarImage==null?"" : response.artists!.items![index].data!.visuals!.avatarImage!.sources![0].url.toString(),
+                                        ),),
                                     ),
                                   ),
                                   Padding(

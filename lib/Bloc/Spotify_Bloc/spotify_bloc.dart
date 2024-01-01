@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../Repository/Api/spotify_api.dart';
-import '../Repository/ModelClass/spotify_model.dart';
+import '../../Repository/Api/spotify_api.dart';
+import '../../Repository/ModelClass/spotify_model.dart';
 
 part 'spotify_event.dart';
 part 'spotify_state.dart';

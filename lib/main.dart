@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled4/Bloc/Jios_Bloc/jios_bloc.dart';
 import 'package:untitled4/UI/Bottomnav.dart';
 
-import 'Bloc/spotify_bloc.dart';
+import 'Bloc/Spotify_Bloc/spotify_bloc.dart';
 import 'UI/Home.dart';
 
 void main() {
@@ -18,8 +19,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(designSize: const Size(375, 812),
         builder: (BuildContext contaxt, Widget?child) {
-          return BlocProvider(
-            create: (context) => SpotifyBloc(),
+          return MultiBlocProvider(
+
+            providers: [
+              BlocProvider( create: (context) => SpotifyBloc(),),
+              BlocProvider(create: (context) => JiosBloc()),
+
+            ],
             child: MaterialApp(debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: ThemeData(
