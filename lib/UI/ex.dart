@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:untitled4/Bloc/Jios_Bloc/jios_bloc.dart';
 
 import '../Bloc/Spotify_Bloc/spotify_bloc.dart';
@@ -93,7 +91,7 @@ class _exState extends State<ex> {
         );
       }
       if (state is JiosblocLoaded) {
-        response = BlocProvider.of<JiosBloc>(context).jios_Model;
+        response1 = BlocProvider.of<JiosBloc>(context).jios_Model;
 
 
         return Scaffold(
@@ -162,7 +160,7 @@ class _exState extends State<ex> {
                       enableInfiniteScroll: false,
                       viewportFraction: 1,
                     ),
-                    itemCount:  response.tracks!.items!.length,
+                    itemCount:  response1.results![0].encryptedMediaUrl!.length,
                     itemBuilder: (BuildContext context, int index,
                         int realIndex) {
                       print("real" + realIndex.toString());
@@ -185,7 +183,7 @@ class _exState extends State<ex> {
                                   borderRadius: BorderRadius.circular(5),
                                   child: Image.asset(
 
-                                    response.users!.items![index].data!.image!.largeImageUrl.toString(),
+                                    response1.results![index].image.toString(),
                                     // img[realIndex],
                                      fit: BoxFit.fill,
                                     // height: 397.h,
